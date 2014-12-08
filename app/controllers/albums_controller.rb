@@ -33,6 +33,12 @@ class AlbumsController < ApplicationController
   end
 
   def update
+    if @album.update(album_params)
+      redirect_to album_url(@album)
+    else
+      flash[:errors] = @album.errors.full_messages
+      redirect_to :back
+    end
   end
 
   def destroy
@@ -45,7 +51,7 @@ class AlbumsController < ApplicationController
   end
 
   def set_album
-    @album = Album.find(params[:id])
+    @album = Album.includes(:band).includes(:tracks).find(params[:id])
   end
 
   # band_id passed as hidden input

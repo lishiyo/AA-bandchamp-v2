@@ -6,15 +6,22 @@
 
 <div class="row title-row">
 	<div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
-		<h1><%= @band.name %><%= button_to 'delete', band_url(@band), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-info btn-upload" %></h1>
-
+		<h1>
+      <form method="post" action="<%= band_url(@band) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">
+          <%= fa_icon "times-circle" %>
+        </button>
+      </form>
+      <%= @band.name %>
+    </h1>
 	</div>
 
 	<!-- right header buttons -->
 	<div class="col-lg-3 col-md-3 header-right-btns">
 		<button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#edit-band-modal">edit info</button>
 		<span>&nbsp; &nbsp;</span>
-		<button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add images</button>
+    <%= add_images("#myModal") %>
 
 	</div>
 </div>
@@ -36,7 +43,7 @@
             <h2 class="section-heading">
               No images yet
               <br>
-            <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add some</button>
+              <%= add_images("#myModal") %>
           </h2>
 						<% end %>
 
@@ -54,6 +61,7 @@
       </div>
     </div> <!-- jumbotron -->
 </div>
+
 <!-- band members -->
 <div class="row">
   <h2>Members </h2>

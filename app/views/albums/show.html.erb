@@ -1,1 +1,101 @@
-<h1><%= @album.name %></h1>
+<ol class="breadcrumb" id="nav-crumbs">
+  <li><a href="/">HOME</a></li>
+  <li <%= 'class="active"' if params[:controller] == 'bands' %>><%= link_to "BANDS", bands_url %></li>
+  <li><%= link_to @album.band.name, band_url(@album.band) %></li>
+  <li><%= link_to @album.name, album_url(@album) %></li>
+</ol>
+
+<div class="row title-row">
+  <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
+    <h1>
+      <form method="post" action="<%= album_url(@album) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">
+          <%= fa_icon "times-circle" %>
+        </button>
+      </form>
+
+      <%= @album.name %>
+    </h1>
+  </div>
+
+  <!-- right header buttons -->
+  <div class="col-lg-3 col-md-3 header-right-btns">
+    <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_album">edit info</button>
+    <span>&nbsp; &nbsp;</span>
+      <%= add_images("#myModal") %>
+  </div>
+</div>
+
+<!-- MODAL: edit album -->
+<%= render partial: 'modal_edit_album', locals: { album: @album, band: @album.band, bands: Band.all } %>
+<!-- MODAL: dropzone -->
+<%= render partial: 'shared/image_upload', locals: { subject: @album, load_action: load_image_album_url(@album), attach_action: album_url(@album) } %>
+
+<!-- jumbotron -->
+<div id="portfolio" class="bg-light-gray">
+  <div class="jumbotron" id="band-jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6" >
+          <% if @album.has_images? %>
+          <%= image_tag(@album.profile_pic, class: "band-profile-pic") %>
+          <% else %>
+          <h2 class="section-heading">
+            No images yet
+            <br>
+            <%= add_images("#myModal") %>
+          </h2>
+          <% end %>
+
+        </div>
+        <div class="col-lg-6 col-md-6 profile-right">
+          <h2 class="section-heading">
+            <%= @album.band.name %>
+          </h2>
+          <h2 class="text-genre-tags">
+            <%= taggify(@album.genres) %>
+          </h2>
+
+          <h3 class="section-subheading text-muted text-center"> <%= @album.album_type %> | <%= @album.description %></h3>
+        </div>
+      </div>
+    </div>
+  </div> <!-- jumbotron -->
+</div>
+
+<!-- Add a track -->
+
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+  <%= render partial: 'tracks/form_new', locals: { album: @album, track: Track.new } %>
+  </div>
+</div>
+
+<!-- TRACKS -->
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+  <h2>ALL TRACKS </h2>
+  <div class="row">
+    <table>
+      <tr>
+        <th></th>
+        <th colspan="2">track</th>
+      </tr>
+    <% @album.tracks.each_with_index do |t, i| %>
+      <tr>
+        <td style="min-width:30px;"><%= i + 1 %></td>
+        <td colspan="2">
+          <%= link_to t.name, track_url(t) %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= t.length %></td>
+        <td><%= t.track_type %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+</div>

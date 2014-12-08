@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208160348) do
+ActiveRecord::Schema.define(version: 20141208201511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "albums", force: true do |t|
-    t.integer  "band_id",    null: false
+    t.integer  "band_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
     t.string   "album_type"
     t.string   "name"
+    t.text     "description"
+    t.date     "year_made"
   end
 
   add_index "albums", ["band_id"], name: "index_albums_on_band_id", using: :btree
@@ -46,7 +47,6 @@ ActiveRecord::Schema.define(version: 20141208160348) do
     t.date     "date_created"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "avatars"
     t.text     "description"
     t.string   "tagline"
     t.integer  "submitter_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20141208160348) do
     t.text     "lyrics"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "tracks", ["album_id"], name: "index_tracks_on_album_id", using: :btree
@@ -99,7 +100,6 @@ ActiveRecord::Schema.define(version: 20141208160348) do
     t.string   "session_token",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

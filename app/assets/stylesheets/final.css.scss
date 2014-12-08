@@ -64,7 +64,7 @@ a {
 
 .btn-edit-header {
 	display: inline-block;
-	width: 45%;
+	width: 150px !important;
 	border: 0px;
 	background-color: black;
 }
@@ -73,7 +73,7 @@ a {
 	@extend .btn-edit-header;
 	display: inline-block;
 	background-color: magenta;
-	width: 150px !important;
+	width: 100px !important;
 }
 
 .band-profile-pic {
@@ -113,5 +113,10 @@ a {
 .header-sub-row {
 	text-align: center;
 	margin: 0 auto;
+	padding: 20px;
+}
+
+#portfolio {
+	@extend #portfolio;
 	padding: 20px;
 }

@@ -1,5 +1,7 @@
 class Album < ActiveRecord::Base
 
+	include Imageable
+	
 	belongs_to :band, class_name: "Band", foreign_key: :band_id
 	validates :band, presence: true
 	validates :album_type, inclusion: { in: ["studio", "live"] }

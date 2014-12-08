@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+	resources :images, only: [:create, :destroy]
+
 	resources :users do
 		member do
 			post 'load_dropzone_images', as: 'load_image'
@@ -8,15 +10,22 @@ Rails.application.routes.draw do
 
 	resource :session, only: [:new, :create, :destroy]
 	resources :bands do
+		resources :albums, only: [:new]
 		member do
 			post 'load_dropzone_images', as: 'load_image'
 		end
 	end
-	resources :albums, except: [:index]
-	resources :tracks, except: [:index]
+
+	resources :albums, except: [:index, :new] do
+		resources :tracks, only: [:new]
+		member do
+			post 'load_dropzone_images', as: 'load_image'
+		end
+	end
+
+	resources :tracks, except: [:index, :new]
 	resources :genres, only: [:index, :show]
 
-	resources :images, only: [:create, :destroy]
 
 	root 'pages#home'
 

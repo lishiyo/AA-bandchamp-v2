@@ -46,7 +46,9 @@ class ApplicationController < ActionController::Base
 		@image = Image.new(attachment: image_params[:attachment])
 
     # stop if image doesn't attach
-		if attach_image(@image, params[:controller].classify, params[:id]) && @image.save
+		if @image.save
+      attach_image(@image, params[:controller].classify, params[:id])
+      
       respond_to do |format|
 				format.json { render json: { message: "success", fileID: @image.id }, :status => 200 }
       end
@@ -57,11 +59,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	def attach_image(image, sub_type, sub_id)
-		if image.update(attachable_type: sub_type, attachable_id: sub_id)
-	    true
-    else
-      false
-    end
+		image.update!(attachable_type: sub_type, attachable_id: sub_id)
+
+    image
 	end
 
 	def image_params

@@ -1,5 +1,7 @@
 class Band < ActiveRecord::Base
 
+	include Imageable
+	
 	validates :name, presence: true
 	validates :tagline, length: { maximum: 50 }
 
@@ -16,26 +18,6 @@ class Band < ActiveRecord::Base
 
 	def genre_categories
 		Genre.joins(genre_taggings: [{ album: :band }]).where('bands.id = ?', self.id).pluck('genres.category').uniq
-	end
-
-	def has_images?
-		!self.images.empty?
-	end
-
-	# url to most recent pic
-	def profile_pic
-		return unless has_images?
-		self.images.order('created_at DESC').first.attachment.url
-	end
-
-	def profile_thumb
-		return unless has_images?
-		self.images.order('created_at DESC').first.attachment.thumb.url
-	end
-
-	# urls of image attachments
-	def image_urls
-		self.images.map(&:attachment).map(&:url)
 	end
 
 end

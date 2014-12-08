@@ -1,6 +1,6 @@
 class BandsController < ApplicationController
 
-	respond_to :html, :js, :json
+	respond_to :html, :js
 
 	before_action :set_band, except: [:index, :new, :create]
 	before_action :require_logged_in

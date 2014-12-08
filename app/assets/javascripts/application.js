@@ -16,5 +16,4 @@
 //= require dropzone
 //= require images
 //= require turbolinks
-//= require classie
 //= require_tree .
