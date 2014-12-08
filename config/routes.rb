@@ -16,16 +16,20 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :albums, except: [:index, :new] do
+	resources :albums, except: [:index] do
 		resources :tracks, only: [:new]
 		member do
 			post 'load_dropzone_images', as: 'load_image'
 		end
 	end
 
-	resources :tracks, except: [:index, :new]
-	resources :genres, only: [:index, :show]
+	resources :tracks, except: [:index, :new] do
+		member do
+			post 'load_dropzone_images', as: 'load_image'
+		end
+	end
 
+	resources :genres, only: [:index, :show]
 
 	root 'pages#home'
 

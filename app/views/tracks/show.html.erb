@@ -1,2 +1,35 @@
-<h1>Tracks#show</h1>
-<p>Find me in app/views/tracks/show.html.erb</p>
+<!-- TRACK#show -->
+
+<ol class="breadcrumb" id="nav-crumbs">
+  <li><a href="/">HOME</a></li>
+  <li <%= 'class="active"' if params[:controller] == 'bands' %>><%= link_to "BANDS", bands_url %></li>
+  <li><%= link_to @track.band.name, band_url(@track.band) %></li>
+  <li><%= link_to @track.album.name, album_url(@track.album) %></li>
+  <li><%= link_to @track.name, track_url(@track) %></li>
+</ol>
+
+<div class="row title-row">
+  <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
+    <h1>
+      <form method="post" action="<%= track_url(@track) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">
+          <%= fa_icon "times-circle" %>
+        </button>
+      </form>
+      <%= @track.name %>
+    </h1>
+  </div>
+
+  <!-- right header buttons -->
+  <div class="col-lg-3 col-md-3 header-right-btns">
+    <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_track">edit info</button>
+    <span>&nbsp; &nbsp;</span>
+    <%= add_images("#myModal") %>
+  </div>
+</div>
+
+<!-- MODAL: edit album -->
+<%= render partial: 'modal_edit_track', locals: { track: @track, album: @track.album, band: @track.band } %>
+<!-- MODAL: dropzone -->
+<%= render partial: 'shared/image_upload', locals: { subject: @track, load_action: load_image_track_url(@track), attach_action: track_url(@track) } %>

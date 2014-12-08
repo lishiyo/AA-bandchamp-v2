@@ -34,7 +34,7 @@ class TracksController < ApplicationController
   private
 
   def set_track
-    Track.find(params[:id])
+    @track = Track.includes(album: :band).find(params[:id])
   end
 
   def track_params
