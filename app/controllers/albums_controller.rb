@@ -14,8 +14,14 @@ class AlbumsController < ApplicationController
   end
 
   def create
+    # array of genre_ids
+    genre_ids = album_params[:genre_ids].delete_if(&:empty?)
+
+    album_params.delete(:genre_ids)
+
     @album = Album.new(album_params)
-    if @album.save
+
+    if @album.attach_genre_taggings(genre_ids) && @album.save
       redirect_to album_url(@album)
     else
       flash.now[:errors] = @album.errors.full_messages
@@ -44,6 +50,6 @@ class AlbumsController < ApplicationController
 
   # band_id passed as hidden input
   def album_params
-    params.require(:album).permit(:band_id, :name, :album_type)
+    params.require(:album).permit(:band_id, :name, :album_type, genre_ids: [])
   end
 end

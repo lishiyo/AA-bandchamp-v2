@@ -15,17 +15,16 @@
             <!-- Form -->
             <h2>Add an Album</h2>
 
-            <%= bootstrap_form_for album, url: band_url(band), method: "patch", id: "edit_band_form" do |f| %>
+            <%= bootstrap_form_for album, url: albums_url, method: "POST", id: "add_album_form" do |f| %>
             <%= f.text_field :name %>
-            <%= f.select :band_id, options_for_select(Band.all.map{|b| [b.name, b.id] }, @band.id), { include_blank: true }, { label: "Band: " }, { class: "selectpicker" } %>
+            <%= f.select :band_id, options_for_select(bands.map{|b| [b.name, b.id] }, band.id), include_blank: true, label: "Band: ", class: "selectpicker" %>
             <%= f.form_group :album_type, label: { text: "album type" } do %>
               <%= f.radio_button :album_type, "studio", label: "Studio", checked: true %>
               <%= f.radio_button :album_type, "live", label: "Live" %>
             <% end %>
+            <!-- album[genre_ids][], value: "1"-->
+            <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :category, label: "Genre Category" %>
 
-            <%= f.select :band_id, options_for_select(Band.all.map{|b| [b.name, b.id] }, @band.id), { include_blank: true }, { label: "Band: " }, { class: "selectpicker" } %>
-
-            
             <%= f.submit "submit a new album", :class => "btn btn-primary" %>
             <% end %>
 

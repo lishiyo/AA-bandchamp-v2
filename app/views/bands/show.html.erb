@@ -6,12 +6,12 @@
 
 <div class="row title-row">
 	<div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
-		<h1><%= @band.name %></h1>
+		<h1><%= @band.name %><%= button_to 'delete', band_url(@band), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-info btn-upload" %></h1>
+
 	</div>
 
 	<!-- right header buttons -->
 	<div class="col-lg-3 col-md-3 header-right-btns">
-    <%= button_to 'delete', band_url(@band), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-info btn-upload" %>
 		<button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#edit-band-modal">edit info</button>
 		<span>&nbsp; &nbsp;</span>
 		<button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add images</button>
@@ -33,7 +33,11 @@
             <% if @band.has_images? %>
 							<%= image_tag(@band.profile_pic, class: "band-profile-pic") %>
             <% else %>
-            <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add images</button>
+            <h2 class="section-heading">
+              No images yet
+              <br>
+            <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add some</button>
+          </h2>
 						<% end %>
 
 					</div>
@@ -64,18 +68,18 @@
 </div>
 
 <!-- albums -->
-<div class="row">
+<div class="container text-center">
 <h2>Albums </h2>
-
   <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#add-album-modal">add album</button>
 
   <div class="row">
 
   	 <% @band.albums.each_with_index do |album, i| %>
-  	<%= render partial: 'albums/album_preview', locals: { band: @band, album: album, id: album.id, idx: (i+1) } %>
+  	   <%= render partial: 'albums/album_preview', locals: { band: @band, album: album, id: album.id, idx: (i+1) } %>
   	 <% end %>
+
   </div>
 
   <!-- modal: add_album form -->
-  <%= render partial: 'albums/form_new', locals: { band: @band, album: @album, load_action: new_album_url } %>
+  <%= render partial: 'albums/form_new', locals: { band: @band, bands: @bands, album: @album, load_action: new_album_url } %>
 </div>

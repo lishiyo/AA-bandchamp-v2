@@ -10,7 +10,8 @@ class BandsController < ApplicationController
   end
 
   def show
-		@album = @band.albums.new
+		@bands = Band.all
+		@album = Album.new
   end
 
   def new
