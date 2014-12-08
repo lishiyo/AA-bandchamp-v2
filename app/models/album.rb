@@ -1,7 +1,7 @@
 class Album < ActiveRecord::Base
 
 	include Imageable
-	
+
 	belongs_to :band, class_name: "Band", foreign_key: :band_id
 	validates :band, presence: true
 	validates :album_type, inclusion: { in: ["studio", "live"] }
@@ -9,6 +9,7 @@ class Album < ActiveRecord::Base
 	has_many :tracks, class_name: "Track", foreign_key: :album_id, inverse_of: :album, dependent: :destroy
 
 	has_many :images, as: :attachable, dependent: :destroy
+	has_many :notes, as: :notable, dependent: :destroy
 	has_many :genre_taggings, inverse_of: :album, dependent: :destroy
 	has_many :genres, through: :genre_taggings, source: :genre
 

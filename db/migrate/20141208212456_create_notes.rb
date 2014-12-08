@@ -9,7 +9,7 @@ class CreateNotes < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :notes, [:notable_subject, :notable_type]
+    add_index :notes, [:notable_id, :notable_type]
     add_index :notes, :user_id
   end
 end

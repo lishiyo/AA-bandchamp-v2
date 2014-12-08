@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     # stop if image doesn't attach
 		if @image.save
       attach_image(@image, params[:controller].classify, params[:id])
-      
+
       respond_to do |format|
 				format.json { render json: { message: "success", fileID: @image.id }, :status => 200 }
       end
@@ -67,5 +67,17 @@ class ApplicationController < ActionController::Base
 	def image_params
 		params.require(:image).permit(:attachment, :attachable_type, :attachable_id)
 	end
+
+  # NOTABLE
+
+  # add_note_track
+  def add_track
+
+  end
+
+  # delete_note_track
+  def delete_track
+
+  end
 
 end

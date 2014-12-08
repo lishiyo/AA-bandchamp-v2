@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 	resources :tracks, except: [:index, :new] do
 		member do
 			post 'load_dropzone_images', as: 'load_image'
+			post 'add_note'
+			delete 'destroy_note'
 		end
 	end
 
