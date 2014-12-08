@@ -1,0 +1,32 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+				<!-- screen reader -->
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Photos</h4>
+      </div>
+			
+    <div class="modal-body">
+			<%= form_tag load_action, method: :post, class: "dropzone", id: "sub_dropzone" do %>
+			<div class="fallback">
+				
+<!-- 			<input type="hidden" name="image[attachable_type]" value="<%= params[:controller].classify %>" %>
+ 				<input type="hidden" name="image[attachable_id]" value="<%= params[:id ]%>" %> -->
+				
+				<%= file_field_tag "image[attachment]", multiple: true %>
+			</div>
+		<% end %>
+   </div>
+			
+			<div class="modal-footer" style="text-align: center; margin: 15px;">
+			
+			<!-- hacky way of forcing an attachment to the subject and redirecting to their show page -->
+				<%= button_to "upload", attach_action, method: :get, :class => "btn btn-primary", id: "modal-submit-btn" %>
+<!--  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+			</div>
+		</div>
+</div>
+		
+</div>

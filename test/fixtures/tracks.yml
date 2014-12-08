@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  album_id: 1
+  length: 2014-12-07 03:16:20
+  track_type: MyString
+  lyrics: MyText
+
+two:
+  album_id: 1
+  length: 2014-12-07 03:16:20
+  track_type: MyString
+  lyrics: MyText

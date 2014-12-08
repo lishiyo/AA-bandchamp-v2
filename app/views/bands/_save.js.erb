@@ -1,0 +1,12 @@
+$("ul.errors").html("");
+
+<% if @band.errors.any? %>
+  <% @band.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+    <% end %>
+<% else %>
+  // div in bands/index
+  $(".new-band").html("<%= escape_javascript(render partial: 'band_preview', locals: { band: @band }) %>")
+  // hide new form modal
+  $("#new-band-modal").modal("hide")
+<% end %>

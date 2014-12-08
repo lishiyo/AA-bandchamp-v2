@@ -1,0 +1,12 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.upload-zone {
+	margin: 0 auto !important;
+	text-align: center;
+}
+.btn-upload {
+	@extend .upload-zone;
+	width: 25%;
+}

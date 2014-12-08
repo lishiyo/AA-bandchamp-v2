@@ -1,0 +1,10 @@
+<div class="band-preview">
+<a href="<%= band_url(band) %>">
+  <% if band.has_images? %>
+    <%= image_tag(band.profile_thumb) %>
+  <% else %>
+    <div class="band-profile-default"></div>
+  <% end %>
+  <%= band.name %>
+</a>
+</div>

@@ -1,0 +1,117 @@
+/* globally */
+
+$base-color: #AD141E;
+
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+		color: #777;
+		opacity: 1.0;
+	}
+}
+
+/* navigation */
+
+#nav-crumbs {
+	margin-top: 4px;
+	margin-bottom: 0px;
+	li:first-child {
+		margin-left: 20px;
+	}
+}
+
+/* bands */
+.text-genre-tags {
+	@extend .text-muted;
+	font-size: 1.0em !important;
+	padding-top: 10px !important;
+	font-style: italic;
+	opacity: 0.80;
+
+	a {
+		color: #777;
+		&:hover {
+			color: #428bca;
+			opacity: 1.0;
+		}
+	}
+}
+
+.modal-bands-defaults {
+	z-index:9999 !important;
+	max-width: 66% !important;
+	margin: 0 auto !important;
+	opacity: 0.8;
+}
+
+.edit-modal-body {
+	margin-left: 5%;
+}
+
+.title-row {
+	@extend .row;
+	padding-top: 10px;
+	position: relative;
+}
+
+.header-right-btns {
+	position: absolute;
+	top: 35px;
+	right: 60px;
+	text-align: right;
+}
+
+.btn-edit-header {
+	display: inline-block;
+	width: 45%;
+	border: 0px;
+	background-color: black;
+}
+
+.btn-upload-header {
+	@extend .btn-edit-header;
+	display: inline-block;
+	background-color: magenta;
+	width: 150px !important;
+}
+
+.band-profile-pic {
+	max-height: 300px;
+	max-width: 100%;
+}
+
+#portfolio {
+	@extend #portfolio;
+	padding-top: 20px;
+}
+
+#band-jumbotron {
+	width: 75%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.profile-right {
+	padding-right: 50px;
+	text-align: center;
+}
+
+/* bands index */
+
+#new-band-modal {
+	opacity: 1.0;
+}
+
+.band-profile-default {
+	height: 100px;
+	width: 200px;
+	background-color: black;
+	opacity: 0.3;
+}
+
+.header-sub-row {
+	text-align: center;
+	margin: 0 auto;
+	padding: 20px;
+}

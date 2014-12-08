@@ -1,0 +1,39 @@
+<!-- Add Album modal -->
+<div class="portfolio-modal modal fade modal-bands-defaults" tabindex="-1" role="dialog" id="add-album-modal" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 edit-modal-body">
+          <div class="modal-body">
+
+            <!-- Form -->
+            <h2>Add an Album</h2>
+
+            <%= bootstrap_form_for album, url: band_url(band), method: "patch", id: "edit_band_form" do |f| %>
+            <%= f.text_field :name %>
+            <%= f.select :band_id, options_for_select(Band.all.map{|b| [b.name, b.id] }, @band.id), { include_blank: true }, { label: "Band: " }, { class: "selectpicker" } %>
+            <%= f.form_group :album_type, label: { text: "album type" } do %>
+              <%= f.radio_button :album_type, "studio", label: "Studio", checked: true %>
+              <%= f.radio_button :album_type, "live", label: "Live" %>
+            <% end %>
+
+            <%= f.select :band_id, options_for_select(Band.all.map{|b| [b.name, b.id] }, @band.id), { include_blank: true }, { label: "Band: " }, { class: "selectpicker" } %>
+
+            
+            <%= f.submit "submit a new album", :class => "btn btn-primary" %>
+            <% end %>
+
+            <!--
+            <button type="button" class="btn btn-primary" data-dismiss="modal"> Close</button> -->
+          </div><!-- modal-body -->
+        </div>
+      </div>
+    </div><!-- container -->
+  </div>
+</div>

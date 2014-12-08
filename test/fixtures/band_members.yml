@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  band_id: 1
+  name: MyString
+  birth_date: 2014-12-08
+  gender: MyString
+  description: MyText
+
+two:
+  band_id: 1
+  name: MyString
+  birth_date: 2014-12-08
+  gender: MyString
+  description: MyText

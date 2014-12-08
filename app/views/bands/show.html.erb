@@ -1,0 +1,81 @@
+<ol class="breadcrumb" id="nav-crumbs">
+  <li><a href="/">HOME</a></li>
+	<li <%= 'class="active"' if params[:controller] == 'bands' %>><%= link_to "BANDS", bands_url %></li>
+	<li><%= link_to @band.name, band_url(@band) %></li>
+</ol>
+
+<div class="row title-row">
+	<div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
+		<h1><%= @band.name %></h1>
+	</div>
+
+	<!-- right header buttons -->
+	<div class="col-lg-3 col-md-3 header-right-btns">
+    <%= button_to 'delete', band_url(@band), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-info btn-upload" %>
+		<button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#edit-band-modal">edit info</button>
+		<span>&nbsp; &nbsp;</span>
+		<button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add images</button>
+
+	</div>
+</div>
+
+<!-- edit opens in modal -->
+<%= render partial: 'edit_modal', locals: { band: @band } %>
+<!-- dropzone opens in modal -->
+<%= render partial: 'shared/image_upload', locals: { subject: @band, load_action: load_image_band_url(@band), attach_action: band_url(@band) } %>
+
+<!-- jumbotron -->
+<div id="portfolio" class="bg-light-gray">
+		<div class="jumbotron" id="band-jumbotron">
+      <div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6" >
+            <% if @band.has_images? %>
+							<%= image_tag(@band.profile_pic, class: "band-profile-pic") %>
+            <% else %>
+            <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#myModal">add images</button>
+						<% end %>
+
+					</div>
+						<div class="col-lg-6 col-md-6 profile-right">
+							<h2 class="section-heading">
+									"<%= @band.tagline %>"
+							</h2>
+							<h2 class="text-genre-tags">
+								<%= taggify(@band.genres) %>
+							</h2>
+							<h3 class="section-subheading text-muted text-center"> <%= @band.description %></h3>
+						</div>
+				</div>
+      </div>
+    </div> <!-- jumbotron -->
+</div>
+<!-- band members -->
+<div class="row">
+  <h2>Members </h2>
+   <div class="row">
+
+  	 <% @band.members.each_with_index do |member, i| %>
+
+  	 	<%= render partial: 'member_profile', locals: { band: @band, member: member, idx: (i+1) } %>
+
+  	 <% end %>
+  </div>
+</div>
+
+<!-- albums -->
+<div class="row">
+<h2>Albums </h2>
+
+  <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#add-album-modal">add album</button>
+
+  <div class="row">
+
+  	 <% @band.albums.each_with_index do |album, i| %>
+  	<%= render partial: 'albums/album_preview', locals: { band: @band, album: album, id: album.id, idx: (i+1) } %>
+  	 <% end %>
+  </div>
+
+  <!-- modal: add_album form -->
+  <%= render partial: 'albums/form_new', locals: { band: @band, album: @album, load_action: new_album_url } %>
+</div>

@@ -1,0 +1,10 @@
+<ol class="breadcrumb" id="nav-crumbs">
+  <li><a href="/">HOME</a></li>
+	<% if more_links %>
+		<% more_links.each do |link| %>
+				<li>
+				<%= link %>
+				</li>
+		<% end %>
+	<% end %>
+</ol>
