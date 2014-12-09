@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 
   # NOTABLE
 
-  # add_note => POST /notes
+  # add_note => POST /tracks/:id/notes
   def add_note
     @note = current_user.submitted_notes.build(note_params)
 

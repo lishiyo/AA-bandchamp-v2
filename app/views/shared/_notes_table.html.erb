@@ -6,8 +6,7 @@
     <th colspan="3">note</th>
   </tr>
 
-  <% model ||= params[:owner_class].try(:classify) %>
-  <% owner_notes ||= model.constantize.find(params[:owner_id]).send(:notes) %>
+  <% owner_notes ||= params[:controller].classify.constantize.find(params[:id]).send(:notes) %>
 
   <% owner_notes.each_with_index do |note, i| %>
   <tr>
