@@ -1,18 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'genres/new'
-
-  get 'genres/index'
-
-  get 'genres/show'
-
-  get 'genres/create'
-
-  get 'genres/edit'
-
-  get 'genres/update'
-
-  get 'genres/destroy'
 
 	resources :images, only: [:create, :destroy]
 
@@ -24,6 +11,7 @@ Rails.application.routes.draw do
 
 	resource :session, only: [:new, :create, :destroy]
 	resources :bands do
+		resources :notes, only: [:destroy], to: "bands#destroy_note"
 		resources :albums, only: [:new]
 		member do
 			post 'load_dropzone_images', as: 'load_image'
@@ -32,6 +20,7 @@ Rails.application.routes.draw do
 	end
 
 	resources :albums, except: [:index] do
+		resources :notes, only: [:destroy], to: "albums#destroy_note"
 		resources :tracks, only: [:new]
 		member do
 			post 'load_dropzone_images', as: 'load_image'
@@ -40,6 +29,7 @@ Rails.application.routes.draw do
 	end
 
 	resources :tracks, except: [:index, :new] do
+		resources :notes, only: [:destroy], to: "tracks#destroy_note"
 		member do
 			post 'load_dropzone_images', as: 'load_image'
 			post 'add_note', as: :add_note # tracks/:id/add_note
@@ -49,7 +39,7 @@ Rails.application.routes.draw do
 	resources :genres, only: [:index, :show]
 
 	# post 'notes', to: "tracks#add_note", as: :add_note
-	delete 'notes/:id', to: "tracks#destroy_note", as: :destroy_note
+	# delete 'notes/:id', to: "application#destroy_note", as: :destroy_note
 
 	root 'pages#home'
 

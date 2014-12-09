@@ -21,28 +21,14 @@
       <%= ugly_lyrics(@track.lyrics) %>
     </div>
 
-    <!-- Display notes -->
+    <!-- Display Notes table-->
     <div class="row">
-
-        <h2>NOTES </h2>
-        <div class="row">
-          <table class="table table-hover">
-            <tr>
-              <th></th>
-              <th colspan="3">note</th>
-            </tr>
-            <% @track.notes.each_with_index do |note, i| %>
-            <tr>
-              <td style="min-width:30px;"><%= i + 1 %></td>
-              <td colspan="2">
-                <%= note.content %>
-              </td>
-              <td><%= button_to "delete", destroy_note_url(note), method: :delete, class: "btn btn-primary" %>
-              </td>
-            </tr>
-            <% end %>
-          </table>
-        </div>
+		
+			<div id="notes_table">
+				<% url = "#{root_url}/tracks/#{@track.id}/notes/" %>
+				<%= render partial: 'shared/notes_table', locals: { owner_notes: @track.notes, destroy_action: url } %>
+    	</div>
+			
     </div>
 
 
@@ -57,7 +43,7 @@
 
       <!-- ADD A NOTE -->
 
-      <%= render partial: 'notes/form', locals: { track: @track, action_name: add_note_url, subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
+      <%= render partial: 'notes/form', locals: { track: @track, action_name: add_note_track_url(@track), subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
 
   </div>
 

@@ -8,6 +8,9 @@ class TracksController < ApplicationController
   end
 
   def show
+		@owner = @track
+		@owner_notes = @track.notes
+		@owner_id = @track.id
   end
 
   # created within albums/show

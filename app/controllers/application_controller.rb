@@ -73,11 +73,17 @@ class ApplicationController < ActionController::Base
   # add_note => POST /tracks/:id/notes
   def add_note
     @note = current_user.submitted_notes.build(note_params)
-
+		
     if @note.save
       respond_to do |format|
+				@owner = note_params[:notable_type].classify.constantize.find(note_params[:notable_id])
+				@owner_notes = @owner.notes
+				@owner_id = @owner.id
+				
         format.html { redirect_to :back }
-        format.js
+				format.js do 
+					render 'add_note'
+				end
       end
     else
       respond_to do |format|
@@ -85,7 +91,7 @@ class ApplicationController < ActionController::Base
           flash[:errors] = @note.errors.full_messages
           redirect_to :back
         end
-        format.js
+				format.js 
       end
     end
 
@@ -95,10 +101,28 @@ class ApplicationController < ActionController::Base
   def destroy_note
     @note = Note.find(params[:id])
     @note.destroy
-    redirect_to :back
+		@owner = find_notable
+		@owner_notes = @owner.notes
+		@owner_id = @owner.id
+		
+		respond_to do |format|
+			
+			format.html { redirect_to :back }
+			format.js
+		end
+    
   end
-
+	
   private
+
+	def find_notable
+		params.each do |name, value|
+			if name =~ /(.+)_id$/
+				return $1.classify.constantize.find(value.to_i)
+			end
+		end
+		nil
+	end
 
   def image_params
     params.require(:image).permit(:attachment, :attachable_type, :attachable_id)

@@ -1,12 +1,10 @@
 class User < ActiveRecord::Base
-
+	
+	include Imageable
+	
 	has_many :submitted_bands, class_name: "Band", foreign_key: :submitter_id, inverse_of: :submitter
 	has_many :submitted_notes, class_name: "Note", foreign_key: :user_id, inverse_of: :author
 	
-	has_many :images, as: :attachable, dependent: :destroy
-# 	accepts_nested_attributes_for :images
-# 	attr_accessor :images_attributes
-
 	attr_reader :password # for validating password length
 	validates :email, :password_digest, :session_token, presence: true
 	validates :email, uniqueness: true

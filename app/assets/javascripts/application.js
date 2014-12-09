@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require classie
 //= require dropzone
 //= require images
 //= require turbolinks

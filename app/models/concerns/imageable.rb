@@ -1,5 +1,13 @@
 module Imageable
-
+	
+	extend ActiveSupport::Concern
+	
+	included do
+    has_many :images, as: :attachable, dependent: :destroy
+# 	accepts_nested_attributes_for :images
+# 	attr_accessor :images_attributes
+  end
+	
   def has_images?
     !self.images.empty?
   end

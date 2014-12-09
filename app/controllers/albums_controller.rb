@@ -6,6 +6,9 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
 
   def show
+		@owner = @album
+		@owner_notes = @album.notes
+		@owner_id = @album.id
   end
 
 	# only called from outside bands#show
@@ -21,7 +24,12 @@ class AlbumsController < ApplicationController
 		@band = Band.find(album_params[:band_id])
 		@album = @band.albums.build(album_params.except(:band_id, :genre_ids))
 		
-		if @album.save && @album.attach_genre_taggings(genre_ids)
+		trans = Transaction do
+			@album.save
+			@album.attach_genre_taggings(genre_ids)
+		end
+		
+		if trans.valid?
       redirect_to album_url(@album)
     else
       flash.now[:errors] = @album.errors.full_messages

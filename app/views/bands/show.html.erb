@@ -72,9 +72,12 @@
 
 <!-- albums -->
 <div class="container text-center">
+	<div class="row">
+		
 <h2>Albums </h2>
-  <button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#add-album-modal">add album</button>
-
+			
+  <h2><button type="button" class="btn btn-info btn-upload btn-upload-header" data-toggle="modal" data-target="#add-album-modal">add album</button></h2>
+	
   <div class="row">
 
   	 <% @band.albums.each_with_index do |album, i| %>
@@ -85,5 +88,7 @@
 
   <!-- modal: add_album form -->
   <%= render partial: 'albums/form_new', locals: { band: @band, bands: @bands, album: @album, load_action: new_album_url } %>
+		
+	</div>
 </div>
 

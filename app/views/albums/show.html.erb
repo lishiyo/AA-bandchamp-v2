@@ -71,7 +71,7 @@
     <table class="table table-hover">
       <tr>
         <th></th>
-        <th colspan="2">track</th>
+        <th colspan="2">title</th>
       </tr>
       <% @album.tracks.each_with_index do |t, i| %>
       <tr>
@@ -105,7 +105,8 @@
   <div class="col-lg-6 col-md-6 col-xs-6 jumbo-col-main">
 
     <div id="notes_table">
-      <%= render partial: 'shared/notes_table', locals: { owner_notes: @album.notes, subj_type: params[:controller], owner_id: @album.id } %>
+			<% url = "#{root_url}/albums/#{@album.id}/notes/" %>
+      <%= render partial: 'shared/notes_table', locals: { owner_notes: @album.notes, subj_type: params[:controller], owner_id: @album.id, destroy_action: url } %>
     </div>
 
   </div>
@@ -113,7 +114,7 @@
   <!-- ADD A NOTE -->
 
   <div class="col-lg-3 col-md-3 col-xs-3 jumbo-col-right">
-    <%= render partial: 'notes/form', locals: { album: @album, action_name: add_note_album_url(@album), subj_type: params[:controller].classify, subj_id: params[:id]  } %>
+    <%= render partial: 'notes/form', locals: { album: @album, action_name: add_note_album_url(@album), subj_type: params[:controller].classify, subj_id: params[:id], destroy_action: album_note_url(track_id: @track)  } %>
   </div>
 
 </div>

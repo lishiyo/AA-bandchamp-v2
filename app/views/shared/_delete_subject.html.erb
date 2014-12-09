@@ -1,8 +1,6 @@
-
-<form method="post" action="<%= action_url %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
-  <input type="hidden" name="_method" value="delete" />
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
-  <button type="submit">
-    <%= fa_icon "times-circle" %>
-  </button>
-</form>
+<%= link_to raw("<i class=\"fa fa-times-circle\"></i>"), 
+		action_url, 
+		method: :delete,
+		data: { confirm: "Are you sure?" },
+		style: "display:inline-block;"
+%>

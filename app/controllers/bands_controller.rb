@@ -12,6 +12,7 @@ class BandsController < ApplicationController
   def show
 		@bands = Band.all
 		@album = Album.new
+		@owner_id = @band.id
   end
 
   def new
