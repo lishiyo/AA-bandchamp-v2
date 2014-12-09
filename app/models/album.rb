@@ -27,12 +27,11 @@ class Album < ActiveRecord::Base
 		return true if genre_ids.empty?
 
 		Album.transaction do
-			genre_ids.each do |genre_id|
-				self.genre_taggings.create!(genre_id: genre_id)
+			genre_ids.each do |id|
+				self.genre_taggings.create!(genre_id: id)
 			end
 		end
 
-		self
 	end
 
 end

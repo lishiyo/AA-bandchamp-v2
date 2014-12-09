@@ -18,12 +18,12 @@
             <%= bootstrap_form_for album, url: albums_url, method: "POST", id: "add_album_form" do |f| %>
             <%= f.text_field :name %>
             <%= f.select :band_id, options_for_select(bands.map{|b| [b.name, b.id] }, band.id), include_blank: true, label: "Band: ", class: "selectpicker" %>
-            <%= f.form_group :album_type, label: { text: "album type" } do %>
-              <%= f.radio_button :album_type, "studio", label: "Studio", checked: true %>
-              <%= f.radio_button :album_type, "live", label: "Live" %>
+						<%= f.form_group :album_type, label: { text: "Album Type: " } do %>
+						<%= f.radio_button :album_type, "studio", label: "studio", checked: true, inline: true, class: "btn-radio" %>
+						<%= f.radio_button :album_type, "live", label: "live", inline: true, class: "btn-radio" %>
             <% end %>
             <!-- album[genre_ids][], value: "1"-->
-            <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :category, label: "Genre Category" %>
+            <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :category, label: "Genre Categories", inline: true %>
 
             <%= f.submit "submit a new album", :class => "btn btn-primary" %>
             <% end %>

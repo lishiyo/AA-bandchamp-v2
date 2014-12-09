@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'genres/new'
+
+  get 'genres/index'
+
+  get 'genres/show'
+
+  get 'genres/create'
+
+  get 'genres/edit'
+
+  get 'genres/update'
+
+  get 'genres/destroy'
+
 	resources :images, only: [:create, :destroy]
 
 	resources :users do

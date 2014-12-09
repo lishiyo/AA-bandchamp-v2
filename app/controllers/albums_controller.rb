@@ -8,20 +8,20 @@ class AlbumsController < ApplicationController
   def show
   end
 
-  # only called from outside bands/:id
+	# only called from outside bands#show
   def new
     @album = Album.new
   end
 
+	# create from bands#show
   def create
-    # array of genre_ids
-    genre_ids = album_params[:genre_ids].delete_if(&:empty?)
-
-    album_params.delete(:genre_ids)
-
-    @album = Album.new(album_params)
-
-    if @album.attach_genre_taggings(genre_ids) && @album.save
+		# array of genre_ids (without empty strings)
+    genre_ids = album_params[:genre_ids].delete_if(&:empty?).map(&:to_i)
+		
+		@band = Band.find(album_params[:band_id])
+		@album = @band.albums.build(album_params.except(:band_id, :genre_ids))
+		
+		if @album.save && @album.attach_genre_taggings(genre_ids)
       redirect_to album_url(@album)
     else
       flash.now[:errors] = @album.errors.full_messages
@@ -46,9 +46,6 @@ class AlbumsController < ApplicationController
 
   private
 
-  def set_band
-    @band = Band.find(params[:id])
-  end
 
   def set_album
     @album = Album.includes(:band).includes(:tracks).find(params[:id])
