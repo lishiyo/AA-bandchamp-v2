@@ -7,12 +7,7 @@
 <div class="row title-row">
 	<div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
 		<h1>
-      <form method="post" action="<%= band_url(@band) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit">
-          <%= fa_icon "times-circle" %>
-        </button>
-      </form>
+      <%= render partial: 'shared/delete_subject', locals: { action_url: band_url(@band) } %>
       <%= @band.name %>
     </h1>
 	</div>

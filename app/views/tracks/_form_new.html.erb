@@ -4,6 +4,7 @@
 <h2>ADD A TRACK</h2>
 
 <%= bootstrap_form_for track, url: tracks_url, method: "POST", id: "add_track_form" do |f| %>
+  <!-- pass album_id as hidden field in case not going through Album#show -->
   <%= f.hidden_field :album_id, value: album.id %>
   <%= f.text_field :name %>
   <%= f.time_select :length %>

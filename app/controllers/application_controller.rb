@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 	helper_method :current_user, :logged_in?, :same_user?
+  respond_to :html, :js
 
 	# SESSIONS
 	def current_user
@@ -45,10 +46,12 @@ class ApplicationController < ActionController::Base
 	def load_dropzone_images
 		@image = Image.new(attachment: image_params[:attachment])
 
-    # stop if image doesn't attach
-		if @image.save
+    trans = Image.transaction do
+      @image.save!
       attach_image(@image, params[:controller].classify, params[:id])
+    end
 
+		if trans
       respond_to do |format|
 				format.json { render json: { message: "success", fileID: @image.id }, :status => 200 }
       end
@@ -64,20 +67,45 @@ class ApplicationController < ActionController::Base
     image
 	end
 
-	def image_params
-		params.require(:image).permit(:attachment, :attachable_type, :attachable_id)
-	end
 
   # NOTABLE
 
-  # add_note_track
-  def add_track
+  # add_note => POST /notes
+  def add_note
+    @note = current_user.submitted_notes.build(note_params)
+
+    if @note.save
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:errors] = @note.errors.full_messages
+          redirect_to :back
+        end
+        format.js
+      end
+    end
 
   end
 
-  # delete_note_track
-  def delete_track
+  # destroy_note_url => DELETE /notes/:id
+  def destroy_note
+    @note = Note.find(params[:id])
+    @note.destroy
+    redirect_to :back
+  end
 
+  private
+
+  def image_params
+    params.require(:image).permit(:attachment, :attachable_type, :attachable_id)
+  end
+
+  def note_params # send in from form
+    params.require(:note).permit(:content, :user_id, :notable_type, :notable_id)
   end
 
 end

@@ -8,28 +8,66 @@
   <li><%= link_to @track.name, track_url(@track) %></li>
 </ol>
 
+<!-- main -->
 <div class="row title-row">
-  <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
+
+  <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-2 col-md-offset-2 col-xs-offset-2">
     <h1>
-      <form method="post" action="<%= track_url(@track) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit">
-          <%= fa_icon "times-circle" %>
-        </button>
-      </form>
+      <%= render partial: 'shared/delete_subject', locals: { action_url: track_url(@track) } %>
       <%= @track.name %>
     </h1>
+
+    <div>
+      <%= ugly_lyrics(@track.lyrics) %>
+    </div>
+
+    <!-- Display notes -->
+    <div class="row">
+
+        <h2>NOTES </h2>
+        <div class="row">
+          <table class="table table-hover">
+            <tr>
+              <th></th>
+              <th colspan="3">note</th>
+            </tr>
+            <% @track.notes.each_with_index do |note, i| %>
+            <tr>
+              <td style="min-width:30px;"><%= i + 1 %></td>
+              <td colspan="2">
+                <%= note.content %>
+              </td>
+              <td><%= button_to "delete", destroy_note_url(note), method: :delete, class: "btn btn-primary" %>
+              </td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+    </div>
+
+
   </div>
 
-  <!-- right header buttons -->
-  <div class="col-lg-3 col-md-3 header-right-btns">
-    <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_track">edit info</button>
-    <span>&nbsp; &nbsp;</span>
-    <%= add_images("#myModal") %>
+  <!-- SIDEBAR RIGHT -->
+  <div class="col-lg-3 col-md-3 col-xs-3 col-lg-offset-1 col-md-offset-1 col-xs-offset-1" style="padding-top: 20px;">
+
+      <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_track">edit info</button>
+      <span>&nbsp; &nbsp;</span>
+      <%= add_images("#myModal") %>
+
+      <!-- ADD A NOTE -->
+
+      <%= render partial: 'notes/form', locals: { track: @track, action_name: add_note_url, subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
+
   </div>
+
 </div>
+
 
 <!-- MODAL: edit album -->
 <%= render partial: 'modal_edit_track', locals: { track: @track, album: @track.album, band: @track.band } %>
 <!-- MODAL: dropzone -->
 <%= render partial: 'shared/image_upload', locals: { subject: @track, load_action: load_image_track_url(@track), attach_action: track_url(@track) } %>
+
+
+<br>

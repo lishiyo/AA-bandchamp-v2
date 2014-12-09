@@ -1,0 +1,23 @@
+<h2>NOTES </h2>
+
+<table class="table table-hover">
+  <tr>
+    <th></th>
+    <th colspan="3">note</th>
+  </tr>
+
+  <% model ||= params[:owner_class].try(:classify) %>
+  <% owner_notes ||= model.find(params[:owner_id]).send(:notes) %>
+
+  <% owner_notes.each_with_index do |note, i| %>
+  <tr>
+    <td style="min-width:30px;"><%= i + 1 %></td>
+    <td colspan="2">
+      <%= note.content %>
+    </td>
+    <td><%= button_to "delete", destroy_note_url(note), method: :delete, class: "btn btn-primary" %>
+    </td>
+  </tr>
+  <% end %>
+
+</table>

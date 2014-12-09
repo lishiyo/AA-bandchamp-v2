@@ -10,9 +10,10 @@ class TracksController < ApplicationController
   def show
   end
 
-  # created within albums/new
+  # created within albums/show
   def create
-    @album = Album.find_by(id: track_params[:album_id]) || Album.find_by(id: track_params[:id])
+    @album = Album.find_by(id: track_params[:album_id])
+
     @track = @album.tracks.build(track_params)
     if @track.save
       redirect_to track_url(@track)
@@ -35,6 +36,7 @@ class TracksController < ApplicationController
 
   def set_track
     @track = Track.includes(album: :band).find(params[:id])
+    @notes = @track.notes
   end
 
   def track_params

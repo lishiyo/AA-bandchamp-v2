@@ -1,0 +1,8 @@
+
+<form method="post" action="<%= action_url %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+  <button type="submit">
+    <%= fa_icon "times-circle" %>
+  </button>
+</form>

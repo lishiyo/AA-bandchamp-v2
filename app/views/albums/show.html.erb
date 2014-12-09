@@ -8,12 +8,7 @@
 <div class="row title-row">
   <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
     <h1>
-      <form method="post" action="<%= album_url(@album) %>" data-confirm='Are you sure?' style="display:inline-block; float:left;">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit">
-          <%= fa_icon "times-circle" %>
-        </button>
-      </form>
+      <%= render partial: 'shared/delete_subject', locals: { action_url: album_url(@album) } %>
 
       <%= @album.name %>
     </h1>
@@ -37,7 +32,8 @@
   <div class="jumbotron" id="band-jumbotron">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 col-md-6" >
+
+        <div class="col-lg-6 col-md-6 col-xs-6" >
           <% if @album.has_images? %>
           <%= image_tag(@album.profile_pic, class: "band-profile-pic") %>
           <% else %>
@@ -64,18 +60,12 @@
   </div> <!-- jumbotron -->
 </div>
 
-<!-- Add a track -->
 
-<div class="row">
-  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-  <%= render partial: 'tracks/form_new', locals: { album: @album, track: Track.new } %>
-  </div>
-</div>
-
-<br>
 <!-- TRACKS -->
 <div class="row">
-  <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+
+  <!-- main -->
+<div class="col-lg-6 col-md-6 col-xs-6 jumbo-col-main">
   <h2>ALL TRACKS </h2>
   <div class="row">
     <table class="table table-hover">
@@ -83,7 +73,7 @@
         <th></th>
         <th colspan="2">track</th>
       </tr>
-    <% @album.tracks.each_with_index do |t, i| %>
+      <% @album.tracks.each_with_index do |t, i| %>
       <tr>
         <td style="min-width:30px;"><%= i + 1 %></td>
         <td colspan="2">
@@ -95,8 +85,35 @@
         <td><%= t.length %></td>
         <td><%= t.track_type %></td>
       </tr>
-    <% end %>
+      <% end %>
     </table>
   </div>
 </div>
+
+  <!-- Add a track -->
+  <div class="col-lg-3 col-md-3 col-xs-3 jumbo-col-right">
+    <%= render partial: 'tracks/form_new', locals: { album: @album, track: Track.new } %>
+  </div>
+
+</div>
+<br>
+
+<!-- NOTES -->
+<div class="row">
+
+  <!-- main -->
+  <div class="col-lg-6 col-md-6 col-xs-6 jumbo-col-main">
+
+    <div id="notes_table">
+      <%= render partial: 'shared/notes_table', locals: { owner_notes: @album.notes, owner_class: 'albums', owner_id: @album.id } %>
+    </div>
+
+  </div>
+
+  <!-- ADD A NOTE -->
+
+  <div class="col-lg-3 col-md-3 col-xs-3 jumbo-col-right">
+    <%= render partial: 'notes/form', locals: { album: @album, action_name: add_note_url(owner_class: 'albums', owner_id: @album.id), subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
+  </div>
+
 </div>

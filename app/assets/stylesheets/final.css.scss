@@ -59,7 +59,6 @@ a {
 	position: absolute;
 	top: 35px;
 	right: 60px;
-	text-align: right;
 }
 
 .btn-edit-header {
@@ -95,6 +94,16 @@ a {
 .profile-right {
 	padding-right: 50px;
 	text-align: center;
+}
+
+.jumbo-col-main {
+	margin-left: 12.5% !important;
+	padding: 50px;
+}
+
+.jumbo-col-right {
+	padding: 30px;
+	margin-top: 20px;
 }
 
 /* bands index */

@@ -52,6 +52,7 @@ class AlbumsController < ApplicationController
 
   def set_album
     @album = Album.includes(:band).includes(:tracks).find(params[:id])
+    @notes = @album.notes
   end
 
   # band_id passed as hidden input
