@@ -1,6 +1,6 @@
 <% owner_notes = @owner_notes %>
 	
-<h2><%=pluralize(owner_notes.length, 'NOTES') %></h2>
+<h2><%=pluralize(owner_notes.length, 'NOTE') %></h2>
 
 <table class="table table-hover" style="text-align: left;">
   <% owner_notes.each_with_index do |note, i| %>
@@ -13,9 +13,9 @@
 		<td>	
 			
 			<%= link_to raw("<i class=\"fa fa-times-circle\"></i>"), 
-					(destroy_action + note.id.to_s), 
+				"#{destroy_action}#{note.id}", 
 					method: :delete,
-					remote: true%>
+					remote: true %>
     </td>
   </tr>
   <% end %>

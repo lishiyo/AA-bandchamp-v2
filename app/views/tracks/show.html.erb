@@ -25,7 +25,7 @@
     <div class="row">
 		
 			<div id="notes_table">
-				<% url = "#{root_url}/tracks/#{@track.id}/notes/" %>
+				<% url = "/tracks/#{@track.id}/notes/" %>
 				<%= render partial: 'shared/notes_table', locals: { owner_notes: @track.notes, destroy_action: url } %>
     	</div>
 			

@@ -1,4 +1,4 @@
 $("#notes_table").replaceWith(function(){
-	return $('<div id="notes_table">' + "<%= j( render partial: 'shared/notes_table' ) %>" + '</div>');
+	return $('<div id="notes_table">' + "<%= j( render partial: 'shared/notes_table', locals: { destroy_action: @destroy_url } ) %>" + '</div>');
 });
 

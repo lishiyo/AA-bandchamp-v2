@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
   respond_to :html, :js, :json
 
   before_action :require_logged_in
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+	before_action :set_album, only: [:show, :edit, :update, :destroy]
 
   def show
 		@owner = @album
@@ -52,6 +52,31 @@ class AlbumsController < ApplicationController
   def destroy
   end
 
+	# NOTABLE
+
+	
+	# album_note_url => DELETE /albums/:album_id/notes/:id
+  def destroy_note
+    @note = Note.find(params[:id])
+		@owner = Album.find(params[:album_id])
+		@owner_id = @owner.id
+		
+    @note.destroy
+		# refresh
+		@owner_notes = @owner.notes
+		@destroy_url = "/albums/#{@owner.id}/notes/"
+	
+		p @destroy_url, params[:controller]
+		
+		respond_to do |format|
+			
+			format.html { redirect_to :back }
+			format.js
+		end
+    
+  end
+	
+	
   private
 
 

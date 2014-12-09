@@ -67,10 +67,8 @@ class ApplicationController < ActionController::Base
     image
 	end
 
-
-  # NOTABLE
-
-  # add_note => POST /tracks/:id/notes
+	# NOTABLE
+   # add_note => POST /tracks/:id/notes
   def add_note
     @note = current_user.submitted_notes.build(note_params)
 		
@@ -79,11 +77,10 @@ class ApplicationController < ActionController::Base
 				@owner = note_params[:notable_type].classify.constantize.find(note_params[:notable_id])
 				@owner_notes = @owner.notes
 				@owner_id = @owner.id
+				@destroy_url = "/#{@owner.class.table_name}/#{@owner.id}/notes/"
 				
         format.html { redirect_to :back }
-				format.js do 
-					render 'add_note'
-				end
+				format.js
       end
     else
       respond_to do |format|
@@ -95,22 +92,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-  end
-
-  # destroy_note_url => DELETE /notes/:id
-  def destroy_note
-    @note = Note.find(params[:id])
-    @note.destroy
-		@owner = find_notable
-		@owner_notes = @owner.notes
-		@owner_id = @owner.id
-		
-		respond_to do |format|
-			
-			format.html { redirect_to :back }
-			format.js
-		end
-    
   end
 	
   private

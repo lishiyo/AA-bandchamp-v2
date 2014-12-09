@@ -1,7 +1,7 @@
 class TracksController < ApplicationController
 
   before_action :require_logged_in
-  before_action :set_track, only: [:show, :edit, :update, :destroy]
+	before_action :set_track, only: [:show, :edit, :update, :destroy]
 
   def new
     @track = Track.new
@@ -34,6 +34,27 @@ class TracksController < ApplicationController
 
   def destroy
   end
+	
+	# NOTE: need to use params[:track_id], NOT [:id]!
+	def destroy_note
+    @note = Note.find(params[:id])
+		@owner = Track.find(params[:track_id])
+		@owner_id = @owner.id
+		
+    @note.destroy
+		# refresh
+		@destroy_url = "/albums/#{@owner.id}/notes/"
+		@owner_notes = @owner.notes
+		
+		respond_to do |format|
+			
+			format.html { redirect_to :back }
+			format.js
+		end
+    
+  end
+	
+	
 
   private
 
