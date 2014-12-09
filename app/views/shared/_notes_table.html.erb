@@ -7,7 +7,7 @@
   </tr>
 
   <% model ||= params[:owner_class].try(:classify) %>
-  <% owner_notes ||= model.find(params[:owner_id]).send(:notes) %>
+  <% owner_notes ||= model.constantize.find(params[:owner_id]).send(:notes) %>
 
   <% owner_notes.each_with_index do |note, i| %>
   <tr>

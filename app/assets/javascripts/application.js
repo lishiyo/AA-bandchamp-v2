@@ -15,5 +15,6 @@
 //= require bootstrap
 //= require dropzone
 //= require images
+//= require classie
 //= require turbolinks
 //= require_tree .
