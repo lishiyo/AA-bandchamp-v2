@@ -1,8 +1,10 @@
+<!-- add note form -->
 <div style="width: 100%; margin-top: 20px; float:left;">
   <%= form_tag(action_name, method: :post, remote: true, html: { multipart: true}) do %>
   <%= label_tag 'note[content]', "Make a note" %>
   <%= text_area_tag('note[content]', nil, class: "form-control") %>
 
+	<!-- subj_type and subj_id passed in from renderer -->
   <%= hidden_field_tag "note[notable_type]", subj_type %>
   <%= hidden_field_tag "note[notable_id]", subj_id %>
 

@@ -106,6 +106,7 @@
 
     <div id="notes_table">
 			<% url = "/albums/#{@album.id}/notes/" %>
+			
       <%= render partial: 'shared/notes_table', locals: { owner_notes: @album.notes, subj_type: params[:controller], owner_id: @album.id, destroy_action: url } %>
     </div>
 

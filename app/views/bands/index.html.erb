@@ -7,7 +7,7 @@
 
 <!-- hits new.js.erb -->
 <div class="row">
-  <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3 header-sub-row">
+  <div class="col-lg-8 col-md-8 col-xs-8 col-lg-offset-2 col-md-offset-2 header-sub-row">
  <%= link_to "Add a Band", new_band_url, remote: true, class: "btn btn-primary" %>
   <!-- ajax div -->
   <div class="new-band text-center"></div>
@@ -16,19 +16,19 @@
 
 <div class="row">
 	<h2>Featured</h2>
-  <div class="col-lg-6 col-md-6 col-lg-offset-2 col-md-offset-3">
+  <div class="col-lg-8 col-md-8 col-xs-8 col-lg-offset-2 col-md-offset-2 header-sub-row">
   </div>
 </div>
 
 <div class="row">
 	<h2>Most Popular</h2>
-  <div class="col-lg-6 col-md-6 col-lg-offset-2 col-md-offset-3">
+  <div class="col-lg-8 col-md-8 col-xs-8 col-lg-offset-2 col-md-offset-2 header-sub-row">
   </div>
 </div>
 
 <div class="row">
 	<h2>Most Recent</h2>
-  <div class="col-lg-6 col-md-6 col-lg-offset-2 col-md-offset-3">
+  <div class="col-lg-8 col-md-8 col-xs-8 col-lg-offset-2 col-md-offset-2 header-sub-row">
     <% Band.recent.each do |band| %>
     <%= render partial: 'band_preview', locals: { band: band } %>
     <% end %>
@@ -36,5 +36,5 @@
 
 </div>
 
-<!-- hidden modal: new band form -->
+<!-- MODAL: new band form -->
 <div id="new-band-modal" class="portfolio-modal modal fade  modal-bands-defaults" aria-hidden="true"></div>

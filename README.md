@@ -8,4 +8,4 @@ To-dos:
 	** Favoritable (band, album, track) 
 		- join user_id with favoritable_type, favoritable_id
 	
-* Notable (i.e. commentable) on any band or track
+* AJAX

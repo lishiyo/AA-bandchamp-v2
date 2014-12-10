@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 			flash[:success] = "Successfully signed in."
 			redirect_to user_url(@user)
 		else
-			@user = User.new
+			@user = User.new(user_params)
 			flash.now[:errors] = "Couldn't find user with those credentials."
 			render :new
 		end
