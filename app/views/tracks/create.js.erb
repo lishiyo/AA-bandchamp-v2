@@ -1,0 +1,31 @@
+var el = $('#tracks_table');
+
+var clear_out_form = function(){
+
+  $('input#track_name').val('');
+	$('select#track_length_4i').val('00');
+	$('select#track_length_5i').val('00');
+	$('select#track_track_type').val('regular');
+	$('textarea#track_lyrics').val('');
+
+};
+
+<% if @track.errors.any? %>
+  var errors = $('<ul />');
+	
+  <% @track.errors.full_messages.each do |error| %>
+    errors.append('<li><%= escape_javascript( error ) %></li>');
+  <% end %>
+	
+  el.find('.errors').html(errors);
+
+<% else %>
+
+  $('#tracks_table').append("<%= escape_javascript( 
+	render partial: 'tracks_table_row', locals: { t: @track, i: (@album.tracks.length) } ) %>");
+
+  el.find('.errors').empty();
+
+	clear_out_form();
+
+<% end %>

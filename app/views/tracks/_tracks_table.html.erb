@@ -1,0 +1,23 @@
+<p class="errors"></p>
+
+<table class="table table-hover" id="tracks_table">
+      <tr>
+        <th></th>
+        <th colspan="2">title</th>
+      </tr>
+
+	<% album.tracks.reverse.each_with_index do |t, i| %>
+		<tr>
+			<td style="min-width:30px;"><%= i + 1 %></td>
+			<td colspan="2">
+				<%= link_to t.name, track_url(t) %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><%= t.length %></td>
+			<td><%= t.track_type %></td>
+		</tr>
+	<% end %>
+
+</table>

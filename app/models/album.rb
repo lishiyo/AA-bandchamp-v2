@@ -12,7 +12,7 @@ class Album < ActiveRecord::Base
 	has_many :genre_taggings, inverse_of: :album, dependent: :destroy
 	has_many :genres, through: :genre_taggings, source: :genre
 
-
+	
 	def genre_categories #genre names
 		Genre.joins(genre_taggings: :album).where('albums.id = ?', self.id).pluck('genres.category').uniq
 	end

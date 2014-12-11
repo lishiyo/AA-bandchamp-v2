@@ -10,20 +10,30 @@ class TracksController < ApplicationController
   def show
 		@owner = @track
 		@owner_notes = @track.notes
-		@owner_id = @track.id
   end
 
   # created within albums/show
   def create
     @album = Album.find_by(id: track_params[:album_id])
-
-    @track = @album.tracks.build(track_params)
-    if @track.save
-      redirect_to track_url(@track)
-    else
-      flash[:errors] = @track.errors.full_messages
-      redirect_to album_url(@album)
+		@track = @album.tracks.build(track_params)
+		
+		respond_to do |format|
+    	if @track.save
+				format.js { render 'create', status: :created, location: @track, layout: !request.xhr? }
+				#format.json { render json: @track }
+				format.html { redirect_to track_url(@track) }
+				#format.js { render :partial => 'tracks_table', :object => @track }
+				
+    	else
+				format.js { render @track.errors, status: :unprocessable_entity }
+				#format.json { render json: @track.errors.full_messages, status: :unprocessable_entity }
+				format.html do
+					flash[:errors] = @track.errors.full_messages
+      		redirect_to album_url(@album)
+				end
+			end
     end
+		
   end
 
   def edit

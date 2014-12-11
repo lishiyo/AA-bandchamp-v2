@@ -65,25 +65,9 @@
 <div class="col-lg-6 col-md-6 col-xs-6 jumbo-col-main">
   <h2>ALL TRACKS </h2>
   <div class="row">
-    <table class="table table-hover">
-      <tr>
-        <th></th>
-        <th colspan="2">title</th>
-      </tr>
-      <% @album.tracks.each_with_index do |t, i| %>
-      <tr>
-        <td style="min-width:30px;"><%= i + 1 %></td>
-        <td colspan="2">
-          <%= link_to t.name, track_url(t) %>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= t.length %></td>
-        <td><%= t.track_type %></td>
-      </tr>
-      <% end %>
-    </table>
+		
+			<%= render partial: 'tracks/tracks_table', locals: { album: @album } %>
+    
   </div>
 </div>
 
