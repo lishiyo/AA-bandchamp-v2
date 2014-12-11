@@ -66,7 +66,6 @@ class AlbumsController < ApplicationController
 		@owner_notes = @owner.notes
 		@destroy_url = "/albums/#{@owner.id}/notes/"
 	
-		p @destroy_url, params[:controller]
 		
 		respond_to do |format|
 			

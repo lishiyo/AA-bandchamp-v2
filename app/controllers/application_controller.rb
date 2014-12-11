@@ -69,34 +69,35 @@ class ApplicationController < ActionController::Base
 
 	# NOTABLE
    # add_note => POST /tracks/:id/notes
-  def add_note
-    @note = current_user.submitted_notes.build(note_params)
+#   def add_note
+#     @note = current_user.submitted_notes.build(note_params)
 		
-    if @note.save
-      respond_to do |format|
-				@owner = note_params[:notable_type].classify.constantize.find(note_params[:notable_id])
-				@owner_notes = @owner.notes
-				@owner_id = @owner.id
-				@destroy_url = "/#{@owner.class.table_name}/#{@owner.id}/notes/"
+#     if @note.save
+#       respond_to do |format|
+# 				@owner = note_params[:notable_type].classify.constantize.find(note_params[:notable_id])
+# 				@owner_notes = @owner.notes
+# 				@owner_id = @owner.id
+# 				@destroy_url = "/#{@owner.class.table_name}/#{@owner.id}/notes/"
 				
-        format.html { redirect_to :back }
-				format.js
-      end
-    else
-      respond_to do |format|
-        format.html do
-          flash[:errors] = @note.errors.full_messages
-          redirect_to :back
-        end
-				format.js 
-      end
-    end
-
-  end
+#         format.html { redirect_to :back }
+# 				format.js
+#       end
+#     else
+#       respond_to do |format|
+#         format.html do
+#           flash[:errors] = @note.errors.full_messages
+#           redirect_to :back
+#         end
+# 				format.js 
+#       end
+#     end
+#   end
+	
+	
 	
   private
 
-	def find_notable
+	def find_note_owner
 		params.each do |name, value|
 			if name =~ /(.+)_id$/
 				return $1.classify.constantize.find(value.to_i)

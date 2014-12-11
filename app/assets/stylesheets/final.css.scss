@@ -25,6 +25,10 @@ a {
 	margin-left: 40px;
 }
 
+.btn-info {
+	border: 0px;
+}
+
 /* navigation */
 
 #nav-crumbs {
@@ -66,27 +70,24 @@ a {
 .title-row {
 	@extend .row;
 	padding-top: 10px;
-	position: relative;
+	width: 75%;
+	margin-left: 12.5%
 }
 
-.header-right-btns {
-	position: absolute;
-	top: 35px;
-	right: 60px;
-}
-
-.btn-edit-header {
-	display: inline-block;
-	width: 125px !important;
-	border: 0px;
-	background-color: black;
+i.header-edit-btn {
+	a {
+		color: gray;
+		&:hover {
+			color: yellow;
+		}
+	}
 }
 
 .btn-upload-header {
 	@extend .btn-edit-header;
 	display: inline-block;
 	background-color: magenta;
-	width: 125px !important;
+	width: 100px !important;
 }
 
 .band-profile-pic {

@@ -1,0 +1,31 @@
+<h2><%=pluralize(owner_notes.length, 'NOTE') %></h2>
+
+<table class="table table-hover" style="text-align: left;">
+  <% owner_notes.each_with_index do |note, i| %>
+  <tr>
+		<td style="width:33%;">
+			<%= link_to note.author.email, user_url(note.author) %> </td>
+    <td style="width: 60%">
+      <%= note.content %>
+    </td>
+		<td>	
+			<!-- fake buttons to delete -->
+			<form action="<%= note_url(note) %>" method="POST" data-remote="true" >
+				<input name="_method" type="hidden" value="delete" />
+				<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+				<input type="hidden" name="note[notable_type]" value="<%= note.notable_type %>">
+				<input type="hidden" name="note[notable_id]" value="<%= note.notable_id %>">
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-times-circle"></i>
+			</button>
+			
+				
+			</form>
+		
+<!-- 			<%= link_to raw("<i class=\"fa fa-times-circle\"></i>"), note_url(note), method: :delete, remote: true %> -->
+			
+    </td>
+  </tr>
+  <% end %>
+
+</table>

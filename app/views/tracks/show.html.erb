@@ -13,8 +13,9 @@
 
   <div class="col-lg-7 col-md-7 col-xs-7 col-lg-offset-1 col-md-offset-1 col-xs-offset-1">
     <h1>
-      <%= render partial: 'shared/delete_subject', locals: { action_url: track_url(@track) } %>
+     
       <%= @track.name %>
+			<%= add_images("#myModal", 1) %>
     </h1>
 
     <div>
@@ -25,8 +26,7 @@
     <div class="row">
 		
 			<div id="notes_table">
-				<% url = "/tracks/#{@track.id}/notes/" %>
-				<%= render partial: 'shared/notes_table', locals: { owner_notes: @track.notes, destroy_action: url } %>
+				<%= render partial: 'notes/notes_table', locals: { owner_notes: @track.notes } %>
     	</div>
 			
     </div>
@@ -37,13 +37,17 @@
   <!-- SIDEBAR RIGHT -->
   <div class="col-lg-3 col-md-3 col-xs-3 sidebar-right">
 
-      <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_track">edit info</button>
-      <span>&nbsp; &nbsp;</span>
-      <%= add_images("#myModal") %>
+     <span class="pull-right">
+		
+		<%= add_edit_icon("#modal_edit_track", 3) %>
+			 <%= render partial: 'shared/delete_subject', locals: { action_url: track_url(@track), size: 3 } %>
+		</span> 
+    
+		 
 
       <!-- ADD A NOTE -->
 
-      <%= render partial: 'notes/form', locals: { track: @track, action_name: add_note_track_url(@track), subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
+		<%= render partial: 'notes/form', locals: { track: @track, action_name: notes_url, subj_type: "#{params[:controller].classify}", subj_id: "#{params[:id]}" } %>
 
   </div>
 

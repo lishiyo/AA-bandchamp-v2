@@ -5,21 +5,18 @@
   <li><%= link_to @album.name, album_url(@album) %></li>
 </ol>
 
-<div class="row title-row">
-  <div class="col-lg-6 col-md-6 col-xs-6 col-lg-offset-3 col-md-offset-3">
+<div class="row title-row"> 
+		
     <h1>
-      <%= render partial: 'shared/delete_subject', locals: { action_url: album_url(@album) } %>
-
-      <%= @album.name %>
-    </h1>
-  </div>
-
-  <!-- right header buttons -->
-  <div class="col-lg-3 col-md-3 header-right-btns">
-    <button type="button" class="btn btn-info btn-upload btn-edit-header" data-toggle="modal" data-target="#modal_edit_album">edit info</button>
-    <span>&nbsp; &nbsp;</span>
-      <%= add_images("#myModal") %>
-  </div>
+     
+    <%= @album.name %>
+		<span class="pull-right">
+		<%= add_edit_icon("#modal_edit_album", 1) %>
+			<%= render partial: 'shared/delete_subject', locals: { action_url: album_url(@album), size: 1 } %>
+			
+		</span>
+		</h1>	
+    
 </div>
 
 <!-- MODAL: edit album -->
@@ -38,9 +35,9 @@
           <%= image_tag(@album.profile_pic, class: "band-profile-pic") %>
           <% else %>
           <h2 class="section-heading">
-            No images yet
+           	 	No images yet
             <br>
-            <%= add_images("#myModal") %>
+            <%= add_images("#myModal", 3) %>
           </h2>
           <% end %>
 
@@ -90,7 +87,7 @@
   </div>
 </div>
 
-  <!-- Add a track -->
+  <!-- SIDEBAR: ADD a track -->
   <div class="col-lg-3 col-md-3 col-xs-3 jumbo-col-right">
     <%= render partial: 'tracks/form_new', locals: { album: @album, track: Track.new } %>
   </div>
@@ -105,9 +102,7 @@
   <div class="col-lg-6 col-md-6 col-xs-6 jumbo-col-main">
 
     <div id="notes_table">
-			<% url = "/albums/#{@album.id}/notes/" %>
-			
-      <%= render partial: 'shared/notes_table', locals: { owner_notes: @album.notes, subj_type: params[:controller], owner_id: @album.id, destroy_action: url } %>
+			<%= render partial: 'notes/notes_table', locals: { owner_notes: @album.notes } %>
     </div>
 
   </div>
@@ -115,7 +110,7 @@
   <!-- ADD A NOTE -->
 
   <div class="col-lg-3 col-md-3 col-xs-3 jumbo-col-right">
-    <%= render partial: 'notes/form', locals: { album: @album, action_name: add_note_album_url(@album), subj_type: params[:controller].classify, subj_id: params[:id] } %>
+		<%= render partial: 'notes/form', locals: { album: @album, action_name: notes_url, subj_type: params[:controller].classify, subj_id: params[:id] } %>
   </div>
 
 </div>

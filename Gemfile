@@ -32,8 +32,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 group :production do
   gem 'rails_12factor'
-  gem 'unicorn',        '4.8.3'
 end
+
+gem 'unicorn',        '4.8.3'
 
 group :development, :test do
   gem 'byebug',      '3.4.0'
@@ -41,7 +42,7 @@ group :development, :test do
 	gem 'better_errors'
 	gem 'binding_of_caller'
 	gem 'meta_request'
-	gem 'puma'
+	gem 'unicorn-rails'
 	gem 'pry-rails'
 	gem 'letter_opener'
 end

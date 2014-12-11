@@ -3,7 +3,7 @@
 
 // Run button configuration
   "commands": {
-        "Rails s": "TRUSTED_IP=172.17.42.1 bundle exec rails s puma"
+        "Rails s": "TRUSTED_IP=172.17.42.1 bundle exec rails s"
   },
 
 // Preview button configuration
